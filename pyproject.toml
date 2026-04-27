@@ -12,9 +12,31 @@ dependencies = [
     "wandb>=0.26.1",
 ]
 
+[project.urls]
+Homepage = "https://github.com/undefined443/wandb-util"
+Repository = "https://github.com/undefined443/wandb-util"
+Issues = "https://github.com/undefined443/wandb-util/issues"
+
 [project.scripts]
 wandb-util = "wandb_util.__main__:cli"
+
+[tool.semantic_release]
+version_variable = "pyproject.toml:version"
+version_pattern = 'version = "{version}"'
+upload_to_pypi = true
+upload_to_release = true
+build_command = "uv build"
+branch = "main"
+
+[[tool.semantic_release.publish]]
+text_vars = { repository = "undefined443/wandb-util" }
+hvcs = "github"
 
 [build-system]
 requires = ["uv_build>=0.11.7,<0.12.0"]
 build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "python-semantic-release>=9.21.1",
+]
