@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.0.2 (2026-04-27)
+
+### Bug Fixes
+
+- Use correct version_variables format for semantic-release
+  ([`e45dde1`](https://github.com/undefined443/wandb-util/commit/e45dde16a7a15d51cb8048abb5c3e74177018486))
+
+
 ## v1.0.1 (2026-04-27)
 
 ### Continuous Integration
