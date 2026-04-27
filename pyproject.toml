@@ -1,0 +1,20 @@
+[project]
+name = "wandb-util"
+version = "0.1.0"
+description = "Utility tool providing extended functionality for W&B (Weights & Biases)"
+readme = "README.md"
+authors = [
+    { name = "Xiao Li", email = "xiaoli3397@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "click>=8.3.3",
+    "wandb>=0.26.1",
+]
+
+[project.scripts]
+wandb-util = "wandb_util.__main__:cli"
+
+[build-system]
+requires = ["uv_build>=0.11.7,<0.12.0"]
+build-backend = "uv_build"

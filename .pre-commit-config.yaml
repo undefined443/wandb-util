@@ -1,0 +1,43 @@
+# Pre-commit hooks configuration
+# See https://pre-commit.com for more information
+
+repos:
+  # Additional useful hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+      - id: check-merge-conflict
+      - id: check-added-large-files
+
+  # Prettier - Markdown, YAML, JSON formatter
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v4.0.0-alpha.8
+    hooks:
+      - id: prettier
+        types_or: [markdown, yaml, json]
+
+  # Static type checking
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.20.2
+    hooks:
+      - id: mypy
+        additional_dependencies:
+          - types-aiofiles
+
+  # Python Lint & Format
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.12
+    hooks:
+      - id: ruff-check
+      - id: ruff-format
+
+  # Conventional Commits validation
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v4.4.0
+    hooks:
+      - id: conventional-pre-commit
+        stages: [commit-msg]
