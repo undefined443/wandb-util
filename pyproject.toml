@@ -1,6 +1,6 @@
 [project]
 name = "wandb-util"
-version = "0.1.0"
+version = "0.1.1"
 description = "Utility tool providing extended functionality for W&B (Weights & Biases)"
 readme = "README.md"
 authors = [
