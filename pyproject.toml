@@ -25,7 +25,7 @@ version_variable = "pyproject.toml:version"
 version_pattern = 'version = "{version}"'
 upload_to_pypi = true
 upload_to_release = true
-build_command = "uv build"
+build_command = "pip install uv && uv build"
 branch = "main"
 
 [tool.semantic_release.publish]
