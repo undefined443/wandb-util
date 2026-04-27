@@ -21,7 +21,7 @@ Issues = "https://github.com/undefined443/wandb-util/issues"
 wandb-util = "wandb_util.__main__:cli"
 
 [tool.semantic_release]
-version_variable = "pyproject.toml:version"
+version_variable = "pyproject.toml:project.version"
 version_pattern = 'version = "{version}"'
 upload_to_pypi = true
 upload_to_release = true
