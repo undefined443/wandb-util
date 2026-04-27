@@ -28,7 +28,7 @@ upload_to_release = true
 build_command = "uv build"
 branch = "main"
 
-[[tool.semantic_release.publish]]
+[tool.semantic_release.publish]
 text_vars = { repository = "undefined443/wandb-util" }
 hvcs = "github"
 
