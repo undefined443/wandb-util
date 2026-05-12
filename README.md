@@ -42,7 +42,7 @@ wandb-util -e <entity> -p <project> artifact download <artifact_path>
 
 ## Global Options
 
-- `-e, --entity TEXT` - W&B entity (username or team) [required]
+- `-e, --entity TEXT` - W&B entity (username or team). Defaults to the entity inferred from `~/.netrc` credentials
 - `-p, --project TEXT` - W&B project name [required]
 
 ## Authentication
