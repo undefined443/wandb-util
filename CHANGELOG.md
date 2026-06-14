@@ -2,6 +2,19 @@
 
 <!-- version list -->
 
+## v1.2.0 (2026-06-14)
+
+### Documentation
+
+- Update --entity option description to reflect it's now optional
+  ([`fa90af3`](https://github.com/undefined443/wandb-util/commit/fa90af33ef5b801429f9497883e0883d49e5d5be))
+
+### Features
+
+- **run**: Add cleanup subcommand to delete short-lived runs
+  ([`be54e44`](https://github.com/undefined443/wandb-util/commit/be54e44b09e297ef115e1ba518a7d885d7c94ca1))
+
+
 ## v1.1.0 (2026-05-12)
 
 ### Chores
