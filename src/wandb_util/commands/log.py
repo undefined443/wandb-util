@@ -4,7 +4,52 @@ import wandb
 from ..utils import handle_api_errors
 
 
-def _list_logs(
+def _print_run_header(run, entity: str, project: str) -> None:
+    """Print run information header."""
+    print(f"Run:     {run.name} ({run.id})")
+    print(f"State:   {run.state}")
+    print(f"Project: {entity}/{project}")
+    print()
+
+
+def _get_output_log(
+    api: wandb.Api,
+    entity: str,
+    project: str,
+    run_id: str,
+    tail: int | None = None,
+    output_file: str | None = None,
+) -> None:
+    """Core logic to display run output log."""
+    run = api.run(f"{entity}/{project}/{run_id}")
+    _print_run_header(run, entity, project)
+
+    output_content = None
+    for file in run.files():
+        if file.name == "output.log":
+            output_content = file.read_text()
+            break
+
+    if output_content is None:
+        print("No output.log found for this run.")
+        return
+
+    lines = output_content.split("\n")
+
+    if tail:
+        lines = lines[-tail:]
+
+    content = "\n".join(lines)
+
+    if output_file:
+        with open(output_file, "w") as f:
+            f.write(content)
+        print(f"Output saved to {output_file}")
+    else:
+        print(content)
+
+
+def _show_metrics(
     api: wandb.Api,
     entity: str,
     project: str,
@@ -14,13 +59,9 @@ def _list_logs(
     prefix: str | None = None,
     last: int = 10,
 ) -> None:
-    """Core logic to list logs for a run."""
+    """Core logic to display metrics for a run."""
     run = api.run(f"{entity}/{project}/{run_id}")
-
-    print(f"Run:     {run.name} ({run.id})")
-    print(f"State:   {run.state}")
-    print(f"Project: {entity}/{project}")
-    print()
+    _print_run_header(run, entity, project)
 
     filter_set = set(filter_keys.split(",")) if filter_keys else None
 
@@ -77,12 +118,33 @@ def log(ctx):
 )
 @click.pass_context
 @handle_api_errors
-def list(ctx, run_id, history, prefix, keys, last):
-    """List logs for a run."""
+def metrics(ctx, run_id, history, prefix, keys, last):
+    """Display metrics for a run (summary or history)."""
     entity = ctx.obj["entity"]
     project = ctx.obj["project"]
     api = wandb.Api()
-    _list_logs(api, entity, project, run_id, history, keys, prefix, last)
+    _show_metrics(api, entity, project, run_id, history, keys, prefix, last)
 
 
-log.add_command(list, name="ls")
+@log.command()
+@click.argument("run_id")
+@click.option(
+    "--tail",
+    "-t",
+    type=int,
+    help="Show only the last N lines.",
+)
+@click.option(
+    "--output",
+    "-o",
+    type=str,
+    help="Save output to file.",
+)
+@click.pass_context
+@handle_api_errors
+def output(ctx, run_id, tail, output):
+    """Display stdout/stderr output for a run."""
+    entity = ctx.obj["entity"]
+    project = ctx.obj["project"]
+    api = wandb.Api()
+    _get_output_log(api, entity, project, run_id, tail, output)
